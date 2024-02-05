@@ -2,9 +2,9 @@
 /**
  * PrivateBin
  *
- * a zero-knowledge paste bin
+ * A zero-knowledge paste bin
  *
- * @link      https://github.com/PrivateBin/PrivateBin
+ * @copyright https://github.com/PrivateBin/PrivateBin
  * @copyright 2012 Sébastien SAUVAGE (sebsauvage.net)
  * @license   https://www.opensource.org/licenses/zlib-license.php The zlib/libpng License
  * @version   1.5.1
@@ -24,14 +24,14 @@ use PrivateBin\Persistence\TrafficLimiter;
 class Controller
 {
     /**
-     * version
+     * Version
      *
      * @const string
      */
     const VERSION = '1.5.1';
 
     /**
-     * minimal required PHP version
+     * Minimal required PHP version
      *
      * @const string
      */
