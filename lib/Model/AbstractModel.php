@@ -1,23 +1,24 @@
 <?php
-/**
- * PrivateBin
+
+declare(strict_types=1);
+
+/*
+ * This file is part of PHP CS Fixer.
  *
- * a zero-knowledge paste bin
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *     Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
- * @link      https://github.com/PrivateBin/PrivateBin
- * @copyright 2012 Sébastien SAUVAGE (sebsauvage.net)
- * @license   https://www.opensource.org/licenses/zlib-license.php The zlib/libpng License
- * @version   1.5.1
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace PrivateBin\Model;
 
-use Exception;
 use PrivateBin\Configuration;
 use PrivateBin\Data\AbstractData;
 
 /**
- * AbstractModel
+ * AbstractModel.
  *
  * Abstract model for PrivateBin objects.
  */
@@ -26,7 +27,6 @@ abstract class AbstractModel
     /**
      * Instance ID.
      *
-     * @access protected
      * @var string
      */
     protected $_id = '';
@@ -34,15 +34,13 @@ abstract class AbstractModel
     /**
      * Instance data.
      *
-     * @access protected
      * @var array
      */
-    protected $_data = array('meta' => array());
+    protected $_data = ['meta' => []];
 
     /**
      * Configuration.
      *
-     * @access protected
      * @var Configuration
      */
     protected $_conf;
@@ -50,28 +48,22 @@ abstract class AbstractModel
     /**
      * Data storage.
      *
-     * @access protected
      * @var AbstractData
      */
     protected $_store;
 
     /**
      * Instance constructor.
-     *
-     * @access public
-     * @param  Configuration $configuration
-     * @param  AbstractData $storage
      */
     public function __construct(Configuration $configuration, AbstractData $storage)
     {
-        $this->_conf       = $configuration;
-        $this->_store      = $storage;
+        $this->_conf = $configuration;
+        $this->_store = $storage;
     }
 
     /**
      * Get ID.
      *
-     * @access public
      * @return string
      */
     public function getId()
@@ -82,14 +74,14 @@ abstract class AbstractModel
     /**
      * Set ID.
      *
-     * @access public
      * @param string $id
-     * @throws Exception
+     *
+     * @throws \Exception
      */
-    public function setId($id)
+    public function setId($id): void
     {
         if (!self::isValidId($id)) {
-            throw new Exception('Invalid paste ID.', 60);
+            throw new \Exception('Invalid paste ID.', 60);
         }
         $this->_id = $id;
     }
@@ -97,11 +89,9 @@ abstract class AbstractModel
     /**
      * Set data and recalculate ID.
      *
-     * @access public
-     * @param  array $data
-     * @throws Exception
+     * @throws \Exception
      */
-    public function setData(array $data)
+    public function setData(array $data): void
     {
         $data = $this->_sanitize($data);
         $this->_validate($data);
@@ -114,7 +104,6 @@ abstract class AbstractModel
     /**
      * Get instance data.
      *
-     * @access public
      * @return array
      */
     public function get()
@@ -125,23 +114,20 @@ abstract class AbstractModel
     /**
      * Store the instance's data.
      *
-     * @access public
-     * @throws Exception
+     * @throws \Exception
      */
     abstract public function store();
 
     /**
      * Delete the current instance.
      *
-     * @access public
-     * @throws Exception
+     * @throws \Exception
      */
     abstract public function delete();
 
     /**
      * Test if current instance exists in store.
      *
-     * @access public
      * @return bool
      */
     abstract public function exists();
@@ -149,9 +135,10 @@ abstract class AbstractModel
     /**
      * Validate ID.
      *
-     * @access public
      * @static
-     * @param  string $id
+     *
+     * @param string $id
+     *
      * @return bool
      */
     public static function isValidId($id)
@@ -162,8 +149,6 @@ abstract class AbstractModel
     /**
      * Sanitizes data to conform with current configuration.
      *
-     * @access protected
-     * @param  array $data
      * @return array
      */
     abstract protected function _sanitize(array $data);
@@ -171,11 +156,7 @@ abstract class AbstractModel
     /**
      * Validate data.
      *
-     * @access protected
-     * @param  array $data
-     * @throws Exception
+     * @throws \Exception
      */
-    protected function _validate(array $data)
-    {
-    }
+    protected function _validate(array $data): void {}
 }
